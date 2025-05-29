@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Product list with cart</title>
+
+    <link
+      rel="stylesheet"
+      href="./assets/fonts/RedHatText-VariableFont_wght.ttf"
+    />
+    <link
+      rel="stylesheet"
+      href="./assets/fonts/RedHatText-Italic-VariableFont_wght.ttf"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <main>
+      <div class="product">
+        <h1>Desserts</h1>
+
+        <div class="products-grid"></div>
+      </div>
+
+      <div class="cart">
+        <h2>Your Cart (<span class="cart-count">0</span>)</h2>
+
+        <div class="empty-cart">
+          <img
+            src="assets/images/illustration-empty-cart.svg"
+            alt="empty-cart"
+          />
+          <p>Your added items will appear here</p>
+        </div>
+        <div class="non-empty-cart">
+          <div class="cart-content"></div>
+          <div class="summery">
+            <div class="summation">
+              <p>Order Total</p>
+              <p class="total-price">$68.87</p>
+            </div>
+            <div class="carbon-neutral">
+              <img
+                src="assets/images/icon-carbon-neutral.svg"
+                alt="carbon-neutral"
+              />
+              <p>This is <b> carbon-neutral</b> delivery.</p>
+            </div>
+            <button>Confirm Order</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- <div class="change-quantity">
+  <img class="decrement" src="assets/images/icon-decrement-quantity.svg" alt="-" data-id= " ">
+  <span class="quantity">1</span>
+  <img  class="increase"  src="assets/images/icon-increment-quantity.svg" alt="+"data-id= " ">
+ </div>
+  -->
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
+
+<!-- 
+
+
+<div class="cart-content">
+  <div class="cart-items" data-id="1">
+    <div class="details">
+      <h3>Product Name</h3>
+      <div class="price-quantity">
+        <p class="item-quantity">2x</p>
+        <p class="single-item-price">$ 5.98</p>
+        <p class="total-item-price">$58.68</p>
+      </div>
+    </div>
+    <img
+      class="delete"
+      src="assets/images/icon-remove-item.svg"
+      alt="remove-item"
+      data-id="1"
+    />
+  </div>
+</div> -->
+
+<!-- <footer class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Your Name Here</a>.
+    </footer> -->
