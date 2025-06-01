@@ -24,10 +24,9 @@ export function addToCart(itemId, change) {
     if (change) {
       cart[matchItem].quantity++;
     } else {
+      cart[matchItem].quantity--;
       if (cart[matchItem].quantity == 0) {
-        removeFromCart(matchItem);
-      } else {
-        cart[matchItem].quantity--;
+        removeFromCart(itemId);
       }
     }
   } else {
