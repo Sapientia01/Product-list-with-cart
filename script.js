@@ -33,10 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 <img src="assets/images/icon-add-to-cart.svg" alt="Add" />
                 <h3>Add to Cart</h3>
             </div> 
-            <div class="change-quantity">
+            <div class="change-quantity" >
                 <img class="decrease" src="assets/images/icon-decrement-quantity.svg" alt="-" data-id= "${itemId}">
-                <span class="quantity">1</span>
-                <img  class="increase"  src="assets/images/icon-increment-quantity.svg" alt="+"data-id= "${itemId}">
+                <span class="quantity"  data-id= "${itemId}">1</span>
+                <img  class="increase"  src="assets/images/icon-increment-quantity.svg" alt="+" data-id= "${itemId}">
             </div>
           </button>
           <div class="description">
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const emptyCart = totalOrder.querySelector(".empty-cart");
 
       const orders = document.querySelector(".cart-content");
-      const addToCartBtns = document.querySelectorAll(".addCart");
+      let addToCartBtns = document.querySelectorAll(".addCart");
 
       function addToCartContent(container, itemId) {
         const newItem = document.createElement("div");
@@ -93,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       function changeQuantity(itemId, change) {
         const orderItems = document.querySelectorAll(".cart-items");
+        const btnItemQuantity = document.querySelectorAll("span");
         let quantity = 0;
         orderItems.forEach((item) => {
           if (item.dataset.id == itemId) {
@@ -109,7 +110,40 @@ document.addEventListener("DOMContentLoaded", () => {
             ).toFixed(2)}`;
           }
         });
+        btnItemQuantity.forEach((e) => {
+          if (e.dataset.id == itemId) {
+            e.textContent = quantity;
+          }
+        });
       }
+
+      function inDecrease(itemId, change) {
+        if (change) {
+          addToCart(itemId, true);
+          changeQuantity(itemId, true);
+          updateTotalOrders();
+        } else {
+          addToCart(itemId, false);
+          updateTotalOrders();
+          let quantity = 0;
+          cart.forEach((item) => {
+            if (item.id == itemId) {
+              quantity = item.quantity;
+            }
+          });
+          if (quantity == 0) {
+            removeFromCart(itemId);
+            removeFromCartContent(itemId);
+            updateTotalOrders();
+            changeAddButton(itemId, false);
+            console.log(cart);
+          } else {
+            updateTotalOrders();
+            changeQuantity(itemId, true);
+          }
+        }
+      }
+
       function changeAddButton(itemId, show) {
         if (show) {
           addToCartBtns.forEach((addBtn) => {
@@ -118,7 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
               const add = addBtn.querySelector(".change-quantity");
               add.classList.add("active");
             }
-            console.log(true);
           });
         } else {
           addToCartBtns.forEach((addBtn) => {
@@ -152,21 +185,86 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      addToCartBtns.forEach((addBtn) => {
-        addBtn.addEventListener("click", () => {
-          const itemId = addBtn.dataset.id;
-
-          let found = false;
-          for (let i = 0; i < cart.length; i++) {
-            if (cart[i].id == itemId) {
-              found = true;
+      function addEvenToBtn() {
+        addToCartBtns = document.querySelectorAll(".addCart");
+        addToCartBtns.forEach((Btn) => {
+          const itemId = Btn.dataset.id;
+          const addBtn = Btn.querySelector(".add");
+          const add = Btn.querySelector(".change-quantity");
+          const increase = add.querySelector(".increase");
+          const decrease = add.querySelector(".decrease");
+          increase.addEventListener("click", () => {
+            inDecrease(itemId, true);
+          });
+          decrease.addEventListener("click", () => {
+            inDecrease(itemId, false);
+          });
+          addBtn.addEventListener("click", () => {
+            let found = false;
+            for (let i = 0; i < cart.length; i++) {
+              if (cart[i].id == itemId) {
+                found = true;
+              }
             }
-          }
-          if (!found) {
-            addToCartContent(orders, itemId);
-            addToCart(itemId);
-          }
-          updateTotalOrders();
+            if (!found) {
+              addToCart(itemId, true);
+              addToCartContent(orders, itemId);
+            }
+            updateTotalOrders();
+          });
+        });
+      }
+      addEvenToBtn();
+
+      const confirmBtn = document.querySelector(".summery button");
+      const confirmedModal = document.querySelector(".confirmed");
+      const startNewOrderBtn = confirmedModal.querySelector("button");
+      const confirmedOrders = confirmedModal.querySelector(".detail-orders");
+
+      confirmBtn.addEventListener("click", () => {
+        confirmedOrders.innerHTML = "";
+
+        let totalPrice = 0;
+
+        cart.forEach((item) => {
+          const itemTotal = products[item.id].price * item.quantity;
+          totalPrice += itemTotal;
+
+          confirmedOrders.innerHTML += `
+                  <div class="cart-item">
+                    <div class="left">
+                      <img src="${products[item.id].image.thumbnail}" alt="${
+            products[item.id].name
+          }" />
+                      <div class="datail">
+                        <h3>${products[item.id].name}</h3>
+                        <div>
+                          <p class="quantity">${item.quantity}x</p>
+                          <p class="price">$${(
+                            products[item.id].price / 100
+                          ).toFixed(2)}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="right">$${(itemTotal / 100).toFixed(2)}</div>
+                  </div>
+                `;
+        });
+
+        confirmedModal.querySelector(".total-pric").textContent = `$${(
+          totalPrice / 100
+        ).toFixed(2)}`;
+        confirmedModal.classList.add("active");
+      });
+
+      startNewOrderBtn.addEventListener("click", () => {
+        confirmedModal.classList.remove("active");
+        cart.length = 0;
+        orders.innerHTML = "";
+        updateTotalOrders();
+        addToCartBtns.forEach((btn) => {
+          btn.querySelector(".add").classList.remove("closed");
+          btn.querySelector(".change-quantity").classList.remove("active");
         });
       });
     })
