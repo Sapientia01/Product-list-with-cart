@@ -20,6 +20,7 @@
 }
 
 body {
+  position: relative;
   font-family: "Red Hat Text", sans-serif;
   line-height: 1.6;
   color: #333;
@@ -39,6 +40,7 @@ h1 {
 }
 
 main {
+  /* position: relative; */
   display: grid;
   grid-template-columns: 1fr 400px;
   gap: 2rem;
@@ -149,6 +151,7 @@ main {
 }
 
 .cart {
+  width: 400px;
   padding: 20px 25px 40px 25px;
 }
 .cart,
@@ -272,5 +275,121 @@ main {
   cursor: pointer;
 }
 .summery button:hover {
+  background-color: #7d2406;
+}
+
+.confirmed {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmed.active {
+  display: flex;
+}
+
+.confirmed .card {
+  background-color: #fffffe;
+  padding: 2rem;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.confirmed .card img {
+  width: 60px;
+  height: 60px;
+}
+
+.confirmed .card h1 {
+  color: #1a1a1a;
+  font-size: 3rem;
+  margin-bottom: -30px;
+}
+
+.confirmed .orders-summery {
+  width: 100%;
+  border-top: 1px solid #ebdede;
+  padding-top: 1.5rem;
+}
+
+.confirmed .detail-orders {
+  margin-bottom: 1.5rem;
+}
+
+.confirmed .cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.confirmed .cart-item .left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.confirmed .cart-item .left img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+}
+
+.confirmed .cart-item .datail h3 {
+  font-size: 1rem;
+  color: #564b47;
+  margin-bottom: 0.5rem;
+}
+
+.confirmed .cart-item .datail div {
+  display: flex;
+  gap: 0.5rem;
+  color: #8e5033;
+}
+
+.confirmed .cart-item .right {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.confirmed .total-order-price {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid #ebdede;
+  font-size: 1.2rem;
+}
+
+.confirmed .total-order-price .total-pric {
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.confirmed button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #c83b0e;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.confirmed button:hover {
   background-color: #7d2406;
 }
