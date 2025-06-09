@@ -20,3 +20,6 @@ The users is able to:
 - Reset their selections when they click "Start New Order"
 - View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
+
+## Preview page 
+[here the link](https://products-list-with-cart-bysapintia.netlify.app/)
